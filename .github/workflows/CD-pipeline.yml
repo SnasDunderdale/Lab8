@@ -25,7 +25,7 @@ jobs:
 
       # Pull the image from DockerHub using your secret username
       - name: Pull Docker image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app:1.0
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
 
       # Remove old container if it exists
       - name: Delete old container
@@ -33,7 +33,7 @@ jobs:
 
       # Run the container
       - name: Run Docker container
-        run: docker run -d -p 5000:5000 --name calculator-app ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app:1.0
+        run: docker run -d -p 5000:5000 --name calculator-app ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
 
       # Debug: confirm container is running
       - name: List containers after deploy
