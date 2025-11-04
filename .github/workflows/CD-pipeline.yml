@@ -12,11 +12,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull Docker image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:v1
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
 
       - name: Delete Docker container
-        run: docker rm -f calculator-app || true
+        run: docker rm -f linux_tweet_app || true
 
       - name: Run Docker container
-        run: docker run -d -p 5000:5000 --name calculator-app ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:v1
+        run: docker run -d -p 5000:5000 --name calculator-app ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
 
