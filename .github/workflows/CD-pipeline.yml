@@ -3,19 +3,23 @@ on:
   push:
     branches:
       - main
+
 jobs:
   Deploy:
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Pull Docker image
-        run: sudo docker pull yeast6532/linux_tweet_app
-        # Remove the pulled docker container if it exists
+        run: docker pull yeast6532/linux_tweet_app
+
       - name: Delete Docker container
-        run:  docker rm -f linux_tweet_app || true
+        run: docker rm -f linux_tweet_app || true
+
       - name: Run Docker container
-        run: sudo docker container run --detach --publish 5000:5000 --name linux_tweet_app ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
+        run: docker run -d -p 5000:5000 --name linux_tweet_app yeast6532/linux_tweet_app
+
 
 
 
