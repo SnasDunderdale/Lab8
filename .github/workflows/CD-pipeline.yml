@@ -1,43 +1,21 @@
 name: CD pipeline
-
 on:
   push:
     branches:
       - main
-
 jobs:
   Deploy:
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # Debug: confirm Docker is available
-      - name: Docker version
-        run: docker --version
-
-      # Debug: list current images and containers
-      - name: List images before pull
-        run: docker images
-
-      - name: List containers before deploy
-        run: docker ps -a
-
-      # Pull the image from DockerHub using your secret username
       - name: Pull Docker image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
-
-      # Remove old container if it exists
-      - name: Delete old container
-        run: docker rm -f calculator-app || true
-
-      # Run the container
+        run: sudo docker pull yeast6532/linux_tweet_app
+        # Remove the pulled docker container if it exists
+      - name: Delete Docker container
+        run:  docker rm -f linux_tweet_app || true
       - name: Run Docker container
-        run: docker run -d -p 5000:5000 --name calculator-app ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
-
-      # Debug: confirm container is running
-      - name: List containers after deploy
-        run: docker ps -a
+        run: sudo docker container run --detach --publish 5000:5000 --name linux_tweet_app ${{ secrets.DOCKERHUB_USERNAME }}/linux_tweet_app
 
 
 
